@@ -42,6 +42,12 @@ def cat_file(sha1):
 
     sys.stdout.buffer.write(content)
 
+def write_tree():
+    tree_entries = []
+
+    # Iterate through the files in the current directory
+    for item in sorted(os.listdir():
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python pygit.py <command> [args]")
