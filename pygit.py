@@ -1,6 +1,7 @@
 import os
 import sys
 import hashlib
+import time
 import zlib
 
 def init():
@@ -105,5 +106,31 @@ if __name__ == "__main__":
         cat_file(sha1)
 
     elif command == "write-tree":
-        sha_1 = write_tree(".")
+        sha_1 = write_tree(".") 
         print(sha_1)
+
+def commit_tree(tree_sha1, message, parent_sha1=None):
+    lines  = [f'tree {tree_sha1}']
+
+    if parent_sha1:
+        lines.append(f'parent {parent_sha1}')
+
+    timestamp = int(time.time())
+    utc_offset = '+0000'
+    author_info = f"Dev <dev@example.com> {timestamp} {utc_offset}"
+
+    lines.append(f'author {author_info}')
+    lines.append(f'committer {author_info}')
+
+    lines.append("")
+    lines.append(message)
+
+    payload  = "\n".join(lines).encode("utf-8")
+    header =  f"commit {len(payload)}\0".encode("utf-8")
+    full_data = header + payload
+
+    commit_sha1 = hashlib.sha1(full_data).hexdigest()
+
+    dir_name = os.path.join(".pygit", "objects", commit_sha1[:2])
+    dir_file = os.path.join(dir_name, commit_sha1[2:])
+    os.makedirs(dir_name, exist_ok=True)
