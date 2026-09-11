@@ -20,3 +20,18 @@ A lightweight, educational implementation of Git's core internal object database
 Git is essentially a key-value database built on top of your operating system's file system:
 - **Keys:** 40-character cryptographic SHA-1 hashes (e.g., `557db03de997c86a4a...`).
 - **Values:** `zlib`-compressed binary payloads formatted as `<type> <size>\0<content>`.
+
+## 📋 Requirements
+
+- **Python 3.6+**
+- Standard Library modules only (`os`, `sys`, `hashlib`, `zlib`). No external `pip` dependencies required.
+
+---
+
+## ⚡ Quickstart & Usage
+
+### 1. Initialize Repository
+Create the hidden internal `.pygit/` file structures:
+```bash
+python pygit.py init
+# Output: Initialized empty PyGit repository in .pygit/
