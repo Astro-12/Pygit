@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 import hashlib
 import time
@@ -189,4 +189,8 @@ if __name__ == "__main__":
         parent_sha1 = sys.argv[4] if len(sys.argv) > 4 else None
         commit_sha1 = commit_tree(tree_sha1, message, parent_sha1)
         print(commit_sha1)
+    elif command == "status":
+        from pygit.status import status
+        status()
+
 
